@@ -1,7 +1,7 @@
 import json
 import re
 
-from request import RequestData
+from .request import RequestData
 
 
 class Router:
