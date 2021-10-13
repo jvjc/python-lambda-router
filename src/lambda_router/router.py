@@ -1,6 +1,8 @@
 import json
 import re
 
+from request import Request
+
 
 class Router:
     def __init__(self, event):
@@ -8,7 +10,7 @@ class Router:
         self.method = event.get("requestContext").get("http").get("method")
         self.headers = event.get("headers")
         self.path = event.get("rawPath")
-        self.query = event.get("queryStringParameters")
+        self.query_string = event.get("queryStringParameters")
         try:
             self.body = (
                 json.loads(event.get("body")) if event.get("body") is not None else None
@@ -33,12 +35,12 @@ class Router:
             params = self.check(route.get("path"))
             if route.get("method") and params != False:
                 return route.get("handler")(
-                    request={
-                        "headers": self.headers,
-                        "params": params,
-                        "query": self.query,
-                        "body": self.body,
-                    }
+                    request=Request(
+                        headers=self.headers,
+                        params=self.params,
+                        query_string=self.query_string,
+                        body=self.body,
+                    )
                 )
         return self.not_found_cb()
 
