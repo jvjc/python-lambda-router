@@ -1,7 +1,7 @@
 ```python
 import traceback
 
-from lambda_router import Router
+from router import Router
 
 # utils and functions
 def response(status_code, body=None, headers=None):
@@ -27,10 +27,7 @@ def hanlder(event, context):
 
     except Exception as e:
         traceback.print_exc()
-        return {
-            "statusCode": 500,
-            "body": str(e),
-        }
+        return response(500, str(e))
 
     return router.match()
 ```
