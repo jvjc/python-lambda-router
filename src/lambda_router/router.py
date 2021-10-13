@@ -37,7 +37,7 @@ class Router:
                 return route.get("handler")(
                     request=RequestData(
                         headers=self.headers,
-                        params=self.params,
+                        params=params,
                         query_string=self.query_string,
                         body=self.body,
                     )
