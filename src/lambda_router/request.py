@@ -17,11 +17,12 @@ class RequestData:
     def data(self, name, default=None):
         return self.extract("body", name, default)
 
-    def extract(self, attr, name, default):
-        if self[attr] is None:
+    def extract(self, attr_name, name, default):
+        attr = getattr(self, attr_name)
+        if attr is None:
             return default
 
-        if self[attr][name] is None:
+        if attr.get(name) is None:
             return default
 
-        return self[attr][name]
+        return attr[name]
