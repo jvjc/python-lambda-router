@@ -1,7 +1,7 @@
 import json
 import re
 
-from request import Request
+from request import RequestData
 
 
 class Router:
@@ -35,7 +35,7 @@ class Router:
             params = self.check(route.get("path"))
             if route.get("method") and params != False:
                 return route.get("handler")(
-                    request=Request(
+                    request=RequestData(
                         headers=self.headers,
                         params=self.params,
                         query_string=self.query_string,
