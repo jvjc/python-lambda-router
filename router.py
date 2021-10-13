@@ -1,8 +1,6 @@
 import json
 import re
 
-from .utils import response
-
 
 class Router:
     def __init__(self, event):
@@ -28,11 +26,11 @@ class Router:
         )
 
     def not_found_cb(self):
-        return response(404, "Not Found")
+        return {"statusCode": 404, "body": "Not found"}
 
-    def response(self):
+    def match(self):
         for route in self.routes:
-            params = self.match(route.get("path"))
+            params = self.check(route.get("path"))
             if route.get("method") and params != False:
                 return route.get("handler")(
                     request={
@@ -44,7 +42,7 @@ class Router:
                 )
         return self.not_found_cb()
 
-    def match(self, path):
+    def check(self, path):
         regex_route = path
 
         param_names = re.findall("{(.*?)}", regex_route)
