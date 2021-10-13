@@ -9,5 +9,4 @@ setup(
     author="Víctor Jiménez",
     author_email="corzo@outlook.com",
     url="https://github.com/jvjc/python-lambda-router",
-    packages=["lambda-router"],
 )
