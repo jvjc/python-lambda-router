@@ -17,7 +17,7 @@ def get_by_name(self, request):
     return response(200, request)
 
 # Lambda
-def hanlder(event, context):
+def handler(event, context):
     try:
         router = Router(event)
 
